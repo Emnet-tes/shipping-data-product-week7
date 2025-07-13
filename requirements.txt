@@ -2,3 +2,6 @@ telethon
 psycopg2-binary
 python-dotenv
 dbt-postgres
+beautifulsoup4
+requests
+pathlib
