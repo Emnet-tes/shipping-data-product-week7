@@ -1,0 +1,39 @@
+version: 2
+
+models:
+  - name: stg_telegram_messages
+    description: Staging model for Telegram messages with cleaned and enriched data
+    columns:
+      - name: message_id
+        description: Unique identifier for each message
+        tests:
+          - unique
+          - not_null
+      - name: channel_name
+        description: Name of the Telegram channel
+        tests:
+          - not_null
+      - name: message_date
+        description: Timestamp when the message was posted
+        tests:
+          - not_null
+      - name: view_count
+        description: Number of views for the message
+        tests:
+          - not_null
+      - name: forward_count
+        description: Number of forwards for the message
+        tests:
+          - not_null
+      - name: reply_count
+        description: Number of replies to the message
+        tests:
+          - not_null
+      - name: message_length
+        description: Length of the message in characters
+        tests:
+          - not_null
+      - name: word_count
+        description: Number of words in the message
+        tests:
+          - not_null
