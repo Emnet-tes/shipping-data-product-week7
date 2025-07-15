@@ -37,3 +37,41 @@ models:
         description: Number of words in the message
         tests:
           - not_null
+  - name: stg_image_detections
+    description: Staging model for YOLO object detection results with enriched data
+    columns:
+      - name: id
+        description: Unique identifier for each detection
+        tests:
+          - unique
+          - not_null
+      - name: message_id
+        description: Foreign key to telegram messages
+        tests:
+          - not_null
+      - name: detected_object_class
+        description: Object class detected by YOLO
+        tests:
+          - not_null
+      - name: confidence_score
+        description: Detection confidence score (0-1)
+        tests:
+          - not_null
+      - name: confidence_level
+        description: Categorized confidence level (high/medium/low)
+        tests:
+          - not_null
+          - accepted_values:
+              values: ["high", "medium", "low"]
+      - name: bbox_area
+        description: Area of the bounding box
+        tests:
+          - not_null
+      - name: bbox_center_x
+        description: X coordinate of bounding box center
+      - name: bbox_center_y
+        description: Y coordinate of bounding box center
+      - name: detection_date
+        description: When detection was performed
+        tests:
+          - not_null
