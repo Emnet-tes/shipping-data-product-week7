@@ -91,3 +91,108 @@ models:
         description: Categorization of message interaction based on reply rate
       - name: is_engaging_content
         description: Flag indicating if the message has meaningful engagement
+
+  - name: dim_objects
+    description: Dimension table containing detected objects with classification and statistics
+    columns:
+      - name: object_key
+        description: Surrogate key for the detected object
+        tests:
+          - unique
+          - not_null
+      - name: detected_object_class
+        description: Object class detected by YOLO
+        tests:
+          - unique
+          - not_null
+      - name: object_category
+        description: High-level category of the object
+        tests:
+          - not_null
+          - accepted_values:
+              values:
+                [
+                  "people",
+                  "food_drink",
+                  "electronics",
+                  "furniture",
+                  "household_items",
+                  "vehicles",
+                  "sports",
+                  "animals",
+                  "other",
+                ]
+      - name: total_detections
+        description: Total number of times this object was detected
+        tests:
+          - not_null
+      - name: messages_with_object
+        description: Number of messages containing this object
+        tests:
+          - not_null
+      - name: avg_confidence
+        description: Average confidence score for this object
+        tests:
+          - not_null
+      - name: frequency_category
+        description: Categorization of detection frequency
+        tests:
+          - not_null
+          - accepted_values:
+              values: ["very_common", "common", "uncommon", "rare"]
+
+  - name: fct_image_detections
+    description: Fact table containing individual object detections from images
+    columns:
+      - name: detection_id
+        description: Unique identifier for each detection
+        tests:
+          - unique
+          - not_null
+      - name: message_id
+        description: Foreign key to fct_messages
+        tests:
+          - not_null
+          - relationships:
+              to: ref('fct_messages')
+              field: message_id
+      - name: channel_key
+        description: Foreign key to dim_channels
+        tests:
+          - not_null
+          - relationships:
+              to: ref('dim_channels')
+              field: channel_key
+      - name: date_key
+        description: Foreign key to dim_dates
+        tests:
+          - not_null
+          - relationships:
+              to: ref('dim_dates')
+              field: date_key
+      - name: detected_object_class
+        description: Object class detected by YOLO
+        tests:
+          - not_null
+      - name: confidence_score
+        description: Detection confidence score (0-1)
+        tests:
+          - not_null
+      - name: confidence_level
+        description: Categorized confidence level
+        tests:
+          - not_null
+          - accepted_values:
+              values: ["high", "medium", "low"]
+      - name: detection_score
+        description: Calculated detection score with object importance weighting
+        tests:
+          - not_null
+      - name: bbox_area
+        description: Area of the detection bounding box
+        tests:
+          - not_null
+      - name: image_hash
+        description: Hash of the processed image
+        tests:
+          - not_null
