@@ -33,3 +33,39 @@ sources:
             description: Whether message contains media
           - name: scraped_at
             description: When data was scraped
+      - name: image_detections
+        description: YOLO object detection results from images
+        columns:
+          - name: id
+            description: Detection ID
+            tests:
+              - not_null
+              - unique
+          - name: image_path
+            description: Path to the processed image
+          - name: image_hash
+            description: Hash of the image file
+          - name: message_id
+            description: Foreign key to telegram_messages (nullable for unmatched images)
+          - name: channel_name
+            description: Telegram channel name
+          - name: detected_object_class
+            description: Object class detected by YOLO
+            tests:
+              - not_null
+          - name: confidence_score
+            description: Detection confidence score (0-1)
+            tests:
+              - not_null
+          - name: bbox_x1
+            description: Bounding box left coordinate
+          - name: bbox_y1
+            description: Bounding box top coordinate
+          - name: bbox_x2
+            description: Bounding box right coordinate
+          - name: bbox_y2
+            description: Bounding box bottom coordinate
+          - name: detection_date
+            description: When detection was performed
+          - name: model_version
+            description: YOLO model version used
