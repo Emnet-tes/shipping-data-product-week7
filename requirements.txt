@@ -5,3 +5,4 @@ dbt-postgres
 beautifulsoup4
 requests
 pathlib
+ultralytics
