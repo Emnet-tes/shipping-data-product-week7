@@ -1,0 +1,50 @@
+[build-system]
+requires = ["setuptools>=61.0", "wheel"]
+build-backend = "setuptools.build_meta"
+
+[project]
+name = "telegram-analytics-pipeline"
+version = "0.1.0"
+description = "Dagster pipeline for telegram data analytics"
+authors = [
+    {name = "Your Name", email = "your.email@example.com"},
+]
+dependencies = [
+    "dagster>=1.11.0",
+    "dagster-webserver>=1.11.0",
+    "dagster-postgres>=0.23.0",
+    "dagster-dbt>=0.23.0",
+    "dbt-core>=1.7.0",
+    "dbt-postgres>=1.7.0",
+    "psycopg2-binary>=2.9.0",
+    "fastapi>=0.104.0",
+    "uvicorn>=0.24.0",
+    "pandas>=2.0.0",
+    "numpy>=1.24.0",
+    "ultralytics>=8.0.0",
+    "requests>=2.31.0",
+    "python-multipart>=0.0.6",
+    "jinja2>=3.1.0",
+    "aiofiles>=23.2.0",
+    "python-dotenv>=1.0.0",
+]
+
+[project.optional-dependencies]
+dev = [
+    "pytest>=7.0.0",
+    "black>=23.0.0",
+    "flake8>=6.0.0",
+    "mypy>=1.0.0",
+]
+
+[tool.setuptools.packages.find]
+where = ["."]
+include = ["dagster_pipeline*", "api*", "scripts*"]
+
+[tool.black]
+line-length = 88
+target-version = ['py39']
+
+[tool.mypy]
+python_version = "3.9"
+ignore_missing_imports = true
